@@ -1,0 +1,26 @@
+---
+title: NetD Renames
+---
+
+<script>
+	import * as Alert from "$lib/components/ui/alert";
+</script>
+
+# Renames
+
+Renaming interfaces is a feature that allows you to rename interfaces to more human-readable names. The names are used in the rest of the configuration file and can be whatever you want.
+
+Here is an example of renaming `eth0` to `wan` and `eth1` to `lan`:
+
+```toml
+[renames]
+eth0 = "wan"
+eth1 = "lan"
+```
+
+<Alert.Root>
+	<Alert.Title>Note</Alert.Title>
+  <Alert.Description>
+    You can only use renames for interfaces automatically created by your kernel. This is because renames are applied as the first step in netd, when other interfaces are not yet created.
+  </Alert.Description>
+</Alert.Root>

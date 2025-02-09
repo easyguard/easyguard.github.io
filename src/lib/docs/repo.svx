@@ -1,0 +1,17 @@
+---
+title: Alpine Repository
+---
+
+# Alpine Repository
+
+EasyGuard provides an Alpine repository that contains packages for all EasyGuard tools.
+
+## Installation
+
+This repository is automatically added with the Express Install script. If you want to add it manually, you can do so by adding the following line to `/etc/apk/repositories`:
+
+```
+https://easyguard.github.io/repo
+```
+
+Please note that EasyGuard is currently only supported on Alpine Linux v3.20.X on x86_64.

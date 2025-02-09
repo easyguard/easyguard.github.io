@@ -1,0 +1,24 @@
+---
+title: Failover
+---
+
+<script>
+	import * as Alert from "$lib/components/ui/alert";
+	import BrickWallIcon from "lucide-svelte/icons/brick-wall";
+</script>
+
+# Failover
+
+NetD provides simple failover across multiple machines. These machines monitor each other using pings. If a machine stops responding to pings, another machine will take over the routing job for that machine.
+
+<Alert.Root>
+	<BrickWallIcon class="size-4" />
+	<Alert.Title>Firewall</Alert.Title>
+  <Alert.Description>
+		The firewalls need to accept ICMP echo-request packets from the lan interface. Otherwise, other nodes will think that node is down.
+  </Alert.Description>
+</Alert.Root>
+
+Think of it like 2 modes of operation: normal and failover. In normal mode, the machine is routing traffic as usual. In failover mode, the machine is watching the current gateway and if it stops responding, it will take over the routing job and goes into normal mode.
+
+After a node takes over the routing job, it will send out so-called gratuitous ARP packets to update the ARP tables of the other machines on the network. This way, all machines in the network will know that the MAC address of the gateway has changed and will start send packets to the new gateway.

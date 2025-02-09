@@ -1,0 +1,22 @@
+---
+title: NetD Interfaces
+---
+
+# Interfaces
+
+This is the most important part of the configuration file. It defines the configuration for each interface.
+
+Each interface gets it own TOML table under `interfaces`. The name of the table is the name of the interface.
+
+```toml
+[interfaces.wan]
+type = "..."
+```
+
+Every interface has the following shared fields:
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `type` | X | The type of the interface. Can be any of the supported types. |
+| `depends` | | A list of interfaces that this interface depends on. Netd will wait for these interfaces to be UP and CONFIGURED before configuring this interface. |
+| `services` | | A list of OpenRC services that need this interface. Netd will start these services when this interface has finished configuring and will stop them before reloading. |

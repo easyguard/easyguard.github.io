@@ -1,0 +1,49 @@
+---
+title: Ethernet Interfaces
+---
+
+# Ethernet Interfaces
+
+Ethernet is the most common type of interface you will encounter. An example configuration for an ethernet interface is as follows:
+
+```toml
+[interfaces.lan]
+type = "ethernet"
+mode = "static"
+address = "10.10.99.1"
+netmask = 24
+do_failover = true
+```
+
+## Fields
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `mode` | X | How to configure the interface. Can be `dhcp` or `static`. |
+| `address` | mode == `static` | The IP address of the interface for this machine. |
+| `netmask` | mode == `static` | The subnet mask of the interface in CIDR notation. |
+| `gateway` | | Adds the gateway as default route |
+| `do_failover` | | Whether to enable [failover](/docs/netd/failover) for this interface. |
+
+### DHCP Server
+
+If you want to enable a DHCP server on the interface, you can add a configuration like this:
+
+```toml
+[interfaces.<name>.dhcp]
+enabled = true
+netmask = "255.255.255.0"
+router = "10.10.99.1"
+start = "10.10.99.100"
+end = "10.10.99.200"
+dns = "10.10.99.1"
+```
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `enabled` | | Whether to enable the DHCP server. Defaults to `false` |
+| `netmask` | enabled == `true` | The subnet mask of the DHCP server in dotted decimal notation. |
+| `router` | enabled == `true` | The IP address to give out as gateway to the clients. |
+| `start` | enabled == `true` | Range start of the IP addresses to give out. |
+| `end` | enabled == `true` | Range end of the IP addresses to give out. |
+| `dns` | enabled == `true` | The IP address of the DNS server to give out. |

@@ -1,0 +1,68 @@
+---
+title: NetD
+---
+
+# NetD
+
+NetD is the network daemon that manages the iproute2 network stack in EasyGuard. It's main point is that it provides simple failover across multiple machines.
+
+[Source Code](https://github.com/easyguard/netd)
+
+Available as the `netd` package in the [EasyGuard Alpine repository](/docs/repo).
+
+## Configuration
+
+NetD is configured using a simple TOML configuration file. The configuration file is located at `/etc/config/network.toml`.
+
+Here is the default configuration file:
+
+```toml
+[renames]
+eth0 = "wan"
+eth1 = "lan"
+
+[interfaces.wan]
+# The WAN interface
+type = "ethernet"
+mode = "dhcp"
+
+[interfaces.lan]
+# The LAN interface
+type = "ethernet"
+mode = "static"
+address = "10.10.99.1"
+netmask = 24
+do_failover = true
+
+[interfaces.lan.dhcp]
+enabled = true
+netmask = "255.255.255.0"
+router = "10.10.99.1"
+start = "10.10.99.100"
+end = "10.10.99.200"
+dns = "10.10.99.1"
+```
+
+## Commands
+
+NetD provides a simple CLI to manage the network configuration. The CLI is called `netd`. Here are some of the commands you can use:
+
+- `netd run` - Run the network daemon (never use this command, it's only for debugging)
+- `netd reload` - Reload the network configuration
+- `netd reset` - Reset the network configuration (bring all interfaces down and undo everything else)
+
+## Workflow
+
+1. Rename the interfaces according to the configuration file
+2. Configure all interfaces in parallel for maximum speed
+	1. Bring the interface up
+	2. If failover is enabled:
+		1. Launch a DHCP client on the interface
+		2. If no DHCP server is found, continue like normal
+		3. If a DHCP server is found, start pinging the default gateway until it stops responding, remove the IP address and continue like normal
+	3. Add the IP either statically or via DHCP
+	4. If a DHCP server is enabled on the interface, start the DHCP server
+
+The configuration for the interfaces is done in parallel to maximize speed. This is especially important for failover, as it is faster to switch from failover if WAN is already up.
+
+Every interface configuration step changes the label of the interface link in iproute2. This allows other applications to see the current failover status of the interface.

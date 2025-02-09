@@ -1,0 +1,19 @@
+---
+title: Port Rules
+---
+
+# Port Rules
+
+Under each zone in `zones`, there are `input`, `forward` and `output` chains.
+
+Each chain has a list of rules (the `port` list). Each rule has the following fields:
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| protocol | X | The protocol of the rule. Can be `tcp`, `udp` or `icmp` |
+| port | protocol != `icmp` | The port number to match. |
+| type | protocol == `icmp` | The ICMP type to match. |
+| source_ip | | The source IP address to match. |
+| dest_ip | | The destination IP address to match. |
+
+These rules can also be in a seperate JSON file inside /etc/config/firewall/templates and included in the main configuration file using the `include` field in each chain.

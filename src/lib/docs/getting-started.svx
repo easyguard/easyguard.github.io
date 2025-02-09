@@ -1,0 +1,40 @@
+---
+title: Getting Started
+---
+
+<script>
+	import * as Alert from "$lib/components/ui/alert";
+	import CpuIcon from "lucide-svelte/icons/cpu";
+</script>
+
+# Getting Started with EasyGuard
+
+EasyGuard is a open-source Linux-based firewall. It is designed to be simple to use, secure by default but still powerful enough to be used in production environments.
+
+## Express Installation
+
+To install EasyGuard, you need to install Alpine Linux v3.20 in [diskless mode](https://www.reddit.com/r/AlpineLinux/comments/1bezynm/diskless_install_to_disk/kuxcy70/?context=3).
+
+After you have installed Alpine Linux, you can install EasyGuard by running the following commands:
+
+```sh
+curl -fsSL https://easyguard.github.io/repo/install.sh > i
+ash i
+```
+
+This will install EasyGuard on your system.
+Make sure to save your overlay file system using `lbu ci -d` before rebooting.
+
+<Alert.Root>
+	<CpuIcon class="size-4" />
+	<Alert.Title>Architectures</Alert.Title>
+  <Alert.Description>
+    EasyGuard currently only supports x86 based systems. Support for ARM based systems like Raspberry Pi is planned for the future.
+  </Alert.Description>
+</Alert.Root>
+
+## Default Configuration
+
+By default, EasyGuard will use eth0 as the WAN interface and eth1 as the LAN interface (they will get renamed to wan and lan though). The LAN interface has failover enabled by default and uses the IP address `10.10.99.1`. DHCP is enabled on the LAN interface.
+
+A sane set of firewall rules are also enabled by default. These rules are designed to be secure by default and allow only the necessary traffic like HTTP, HTTPS, DNS, etc.

@@ -1,0 +1,20 @@
+---
+title: Bridge Interfaces
+---
+
+# Bridge Interfaces
+
+Bridges are used to connect multiple interfaces together.
+They use the same configuration as [ethernet interfaces](/docs/netd/interfaces/ethernet), but with an additional `interfaces` field.
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `interfaces` | X | A list of interfaces to bridge together. |
+
+Netd will automatically bring up the interfaces in the bridge.
+
+Do not configure the interfaces that are part of the bridge separately. Assign the IP configuration and stuff like that to the bridge interface itself.
+
+The interface name can be anything you want, but it must be unique.
+You can not use [renames](/docs/netd/renames) with bridge interfaces as renames are applied before the bridge interfaces are created to begin with.
+You may rename the interfaces that are part of the bridge though.

@@ -1,0 +1,99 @@
+---
+title: Limes
+---
+
+# Limes
+
+Limes is the simple firewall for EasyGuard. It allows configuration of nftables using a simple JSON configuration file. It is designed to be simple to use and easy to understand.
+
+[Source code](https://github.com/easyguard/limes) - [Default configuration](https://raw.githubusercontent.com/easyguard/repo/refs/heads/main/limes/firewall.json)
+
+Available as the `limes` package in the [EasyGuard Alpine repository](/docs/repo).
+
+## Configuration
+
+Limes is configured using a JSON file located at `/etc/config/firewall.json`.
+
+Simple configuration for a 2-port router:
+
+```json
+{
+  "zones": [
+    {
+      "name": "wan",
+      "input": {
+        "ports": null,
+        "include": null
+      },
+      "output": {
+        "ports": null,
+        "include": null
+      },
+      "forward": [],
+      "items": {
+        "interfaces": [
+          "wan"
+        ]
+      }
+    },
+    {
+      "name": "lan",
+      "input": {
+        "ports": [
+          {
+            "protocol": "tcp",
+            "port": 80
+          },
+          {
+            "protocol": "tcp",
+            "port": 443
+          },
+          {
+            "protocol": "tcp",
+            "port": 22
+          },
+          {
+            "protocol": "udp",
+            "port": 53
+          },
+          {
+            "protocol": "udp",
+            "port": 67
+          }
+        ],
+        "include": null
+      },
+      "output": {
+        "ports": null,
+        "include": null
+      },
+      "forward": [
+        {
+          "dest": "wan",
+          "ports": [
+            {
+              "protocol": "tcp",
+              "port": 80
+            },
+            {
+              "protocol": "tcp",
+              "port": 443
+            }
+          ],
+          "include": []
+        }
+      ],
+      "items": {
+        "interfaces": [
+          "lan"
+        ]
+      }
+    }
+  ],
+  "forwards": []
+}
+```
+
+## Additional things
+
+Limes will also automatically add a NAT rule for the lan interface and logs to the input and forward chains.

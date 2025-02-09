@@ -1,0 +1,33 @@
+---
+title: Development
+---
+
+# Development
+
+Most EasyGuard projects use the Rust programming language. You will therefore need to have Rust installed on your system and be familiar with the language.
+
+Since your system likely uses `glibc` instead of `musl`, you will need to cross-compile your code for the target system. This is done using `cross`.
+
+After installing, run it like this: `cross build --target x86_64-unknown-linux-musl --release`.
+You may change the architecture to something other than `x86_64` but please note that this is not a supported configuration (yet).
+
+After you have compiled the binary you can copy it using `scp`: ex. `scp -o "UserKnownHostsFile=/dev/null" target/x86_64-unknown-linux-musl/release/limes root@10.10.99.1:/etc/limes`
+
+It also helps to have the possibility to attach a keyboard and monitor to troubleshoot in case you fucked up and something like the network configuration can't be brought back up.
+
+If you need to "emergency up the lan interface", do this:
+
+```sh
+ip link set lan up
+ip addr add 10.10.99.1/24 dev lan
+```
+
+Now you can SSH into the device again and SCP the new binary over. Note that there won't be a DHCP Server running.
+If you somehow fucked up even worse, reboot the device and it will come back up with the old configuration as long as you didn't save them.
+
+For working on netd, the [iproute2 cheat sheet](https://paulgorman.org/technical/linux-iproute2-cheatsheet.html) is a gold mine.
+
+## Submitting patches
+
+Please submit patches as pull requests on the respective repository. If you are unsure about something, feel free to ask in the pull request or in a issue.
+Not a hard requirement, but it would be nice if you could run `cargo fmt` before submitting the patch and please make small commits that are easy to understand (as in, no 1000 adds "it works" commit).

@@ -1,0 +1,34 @@
+---
+title: NetD Hooks
+---
+
+# NetD Hooks
+
+NetD has a simple hook system that allows you to run custom scripts at various points in the configuration process. This can be useful for running custom commands or scripts to set up additional configuration that netd does not handle.
+
+Since a system can have multiple interfaces, the hooks are run independently for each interface.
+
+## Available Hooks
+
+NetD runs hooks in the following order:
+
+- `pre-up`: Runs before the interface is brought up.
+- `post-up`: Runs after the interface is brought up.
+- `post-failover`: Runs after the interface has finished failover and is about to continue with the rest of the configuration. **Only runs on failover-interfaces**
+- `pre-dhcp-server`: Runs before the DHCP server is started. **Only runs on interfaces with DHCP server enabled**
+- `post-dhcp-server`: Runs after the DHCP server is started. **Only runs on interfaces with DHCP server enabled**
+- `post-configure`: Runs after the interface has been configured. IP configuration is done at this point.
+- `post-garp`: Runs after the Gratuitous ARP has been sent. **Only runs on failover-interfaces that failed over**
+
+---
+
+- `pre-down`: Runs before the interface is taken down (like when reloading the configuration).
+- `post-down`: Runs after the interface is taken down (like when reloading the configuration).
+
+## Creating Hooks
+
+Create a file in `/etc/config/network/hooks/<hook_name>.<interface>`. For example, to create a `post-configure` hook for the `lan` interface, you would create a file at `/etc/config/network/hooks/post-configure.lan`.
+
+The file NEEDS to be executable, so make sure to run `chmod +x /etc/config/network/hooks/<hook_name>.<interface>`.
+
+To make sure your hooks can be run, you will need to add a shebang line at the top of the file. This tells the system what interpreter to use to run the script. For example, if you are writing a shell script, you would use `#!/bin/sh`.

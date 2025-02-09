@@ -1,0 +1,20 @@
+---
+title: Limes Hooks
+---
+
+# Limes Hooks
+
+Limes has a simple hook system that allows you to run custom scripts at various points in the configuration process. This can be useful for running custom commands or scripts to set up additional configuration that Limes does not handle.
+
+## Available Hooks
+
+- `pre-apply`: Runs before the configuration is applied. You can use this to add extra rules before the main configuration is applied.
+- `post-apply`: Runs after the configuration is applied. You can use this to add unusual rules that are not supported by Limes.
+
+## Creating Hooks
+
+Create a file in `/etc/config/firewall/hooks/<hook_name>` with no extension. For example, to create a `pre-apply` hook, you would create a file at `/etc/config/firewall/hooks/pre-apply`.
+
+The file NEEDS to be executable, so make sure to run `chmod +x /etc/config/firewall/hooks/<hook_name>`.
+
+To make sure your hooks can be run, you will need to add a shebang line at the top of the file. This tells the system what interpreter to use to run the script. For example, if you are writing a shell script, you would use `#!/bin/sh`.
