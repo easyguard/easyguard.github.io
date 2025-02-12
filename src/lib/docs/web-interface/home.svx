@@ -1,0 +1,21 @@
+---
+title: Home Page
+---
+
+# Home Page
+
+This is the home page of the web interface.
+
+![Home Page](/img/webif/home.png)
+
+The left sidebar contains the navigation links to the different sections of the web interface.
+
+The content area currently displays the current operational status of the system.
+
+## Interfaces
+
+All interfaces are listed here along their status. The first property for each interface is the UP or DOWN status, the second property is the netd status (CONFIGURED, UNTRACKED). After that, the IP and Subnet Mask in CIDR-Notation are shown.
+
+## Connection
+
+First, the current gateway IP is shown. After that, it shows if the gateway and internet are reachable.

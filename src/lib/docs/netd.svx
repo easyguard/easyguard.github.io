@@ -48,8 +48,9 @@ dns = "10.10.99.1"
 NetD provides a simple CLI to manage the network configuration. The CLI is called `netd`. Here are some of the commands you can use:
 
 - `netd run` - Run the network daemon (never use this command, it's only for debugging)
-- `netd reload` - Reload the network configuration
-- `netd reset` - Reset the network configuration (bring all interfaces down and undo everything else)
+- `netd reload` - Reload the network configuration (this will temporarily bring down all interfaces)
+	\[SINCE 0.5.0\] Sends a packet to the netd daemon process to reload the configuration.
+- `netd reset` - Reset the network configuration (bring all interfaces down and undo everything else) (you will likely not need this command)
 
 ## Workflow
 

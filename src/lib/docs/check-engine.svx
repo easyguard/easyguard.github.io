@@ -1,0 +1,19 @@
+---
+title: Check Engine
+---
+
+# Check Engine
+
+This is a simple utility to run checks and report results.
+
+It will run all checks in it's directory (`/etc/config/checks` by default) every 5 seconds. If a check doesn't return exit code 0, it will create a file at `/tmp/check-engine` with the exit code and stdout as well as stderr.
+
+[Source Code](https://github.com/easyguard/check-engine)
+
+Available as the `check-engine` package in the [EasyGuard Alpine repository](/docs/repo).
+
+## Error Displays
+
+1. The console will display a red flashing message "Check Engine!" and the details if there are any errors from the `.profile` file in the root user's home directory.
+2. The easyguard display will show the left part of the screen in red. Details are not displayed due to space constraints.
+3. 🔜 The web interface will show the error on the home page.

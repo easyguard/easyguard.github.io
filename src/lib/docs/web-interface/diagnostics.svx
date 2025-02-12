@@ -1,0 +1,16 @@
+---
+title: Diagnostics
+---
+
+# Diagnostic Tools
+
+This page shows all kinds of diagnostic information one might need to troubleshoot network issues.
+
+Included are the following information:
+- Output of `ip a`
+- Output of `ip link`
+- Output of `ip route`
+- Ping to the gateway
+- Traceroute to google.com
+
+You may also type in a custom address to ping or traceroute to.

@@ -1,0 +1,18 @@
+---
+title: Custom Checks
+---
+
+# Custom Checks
+
+You may create customs checks for the `check-engine` utility. These checks should be placed in the `/etc/config/checks` directory, preferably in a separate directory to categorize them.
+
+Make sure:
+1. The file is executable (`chmod +x /etc/config/checks/my-check.sh`)
+2. The file has a valid shebang (`#!/bin/sh`, note that bash is not available by default)
+3. The file returns exit code 0 for success and non-zero for failure
+4. The file does not require user input
+5. The file returns useful output to stdout and/or stderr
+6. The file is named descriptively
+
+Check Engine will give an error if it is unable to run a check due to permissions or other issues.
+However, if a check is awaiting user input or otherwise hangs, Check Engine will also hang.

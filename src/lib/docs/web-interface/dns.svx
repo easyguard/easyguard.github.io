@@ -1,0 +1,9 @@
+---
+title: DNS
+---
+
+# Managing DNS
+
+![DNS](/img/webif/dns.png)
+
+This page shows the DNS Upstream Server, Blocklists and Custom Addresses.

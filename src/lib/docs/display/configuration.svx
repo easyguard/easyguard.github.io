@@ -1,0 +1,28 @@
+---
+title: Display Configuration
+---
+
+# Display Configuration
+
+The config file is located at `/etc/config/ezgdisp.json`.
+
+Default config:
+```json
+{
+	"device": "1.8:1.1",
+	"wan": "wan",
+	"lan": "lan",
+	"flip_screen": false
+}
+```
+
+## Fields
+
+If any field is missing, the default value will be used.
+
+| Field | Description |
+| --- | --- |
+| `device` | The USB HID address of the display. On AceMagic S1 MiniPCs it is `1.8:1.1`. Consult the dmesg output to find the correct address on other devices. Note that the dmesg output will show an address ending in something other than `:1.1`, just ignore that and use `:1.1` instead. |
+| `wan` | The name of the WAN interface. Default is `wan`. |
+| `lan` | The name of the LAN interface. Default is `lan`. |
+| `flip_screen` | Whether to flip the screen. Default is `false`. |

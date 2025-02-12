@@ -1,0 +1,23 @@
+---
+title: Display
+---
+
+# Display
+
+EasyGuard can display basic information on a status display.
+
+[Source code](https://github.com/easyguard/ezgdisp)
+
+Available as the `ezgdisp` package in the [EasyGuard Alpine repository](/docs/repo).
+
+Supported displays are:
+- AceMagic S1 Panel
+- 🔜 Turing Smart Screen
+
+![Display](/img/display.png "Display")
+
+## Data
+
+The display shows data on both the left and right side.
+- Left: Basic operation status information (goes red if check-engine was triggered)
+- Right: Network interface information (2 interfaces, up/down speed, goes red if any interface is down)

@@ -1,0 +1,12 @@
+---
+title: Built-in Checks
+---
+
+# Built-in Checks
+
+There are a few built-in checks available at `/etc/config/checks/ezg-checks` provided by the `ezg-checks` package. These checks are run by the `check-engine` utility.
+
+- DNS Server Check
+	will check if the 127.0.0.1 DNS Server is resolving domains correctly.
+- API Server Check
+	will check if the API server is running and responding correctly.
